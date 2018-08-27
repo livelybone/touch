@@ -14,42 +14,28 @@ https://github.com/livelybone/touch#readme
 import Touch from '@livelybone/touch'
 
 // Event `tap`
-Touch.tap(document.getElementById('id'), (EventObject)=>{
-  
-})
+Touch.tap(document.getElementById('id'), (EventObject)=>{})
 
 // Event `press`
-Touch.press(document.getElementById('id'), (EventObject)=>{
-  
-})
+Touch.press(document.getElementById('id'), (EventObject)=>{})
 
 // Event `swipe`
-Touch.swipe(document.getElementById('id'), (EventObject)=>{
-  
-})
+Touch.swipe(document.getElementById('id'), (EventObject)=>{})
 
 // Event `pan`
-Touch.pan(document.getElementById('id'), (EventObject)=>{
-  
-})
+Touch.pan(document.getElementById('id'), (EventObject)=>{})
 
 // Event `pinch`
-Touch.pinch(document.getElementById('id'), (EventObject)=>{
-  
-})
+Touch.pinch(document.getElementById('id'), (EventObject)=>{})
 
 // Event `rotate`
-Touch.rotate(document.getElementById('id'), (EventObject)=>{
-  
-})
+Touch.rotate(document.getElementById('id'), (EventObject)=>{})
 ```
 
 ## Unregister
 ```js
 // unregister one event listener
-var touchRes = Touch.tap(document.getElementById('id'), (EventObject)=>{
-  
-})
+var touchRes = Touch.tap(document.getElementById('id'), (EventObject)=>{})
 touchRes.unsubscribe()
 
 // unregister all touch event of an element
@@ -62,9 +48,7 @@ Your can use `bind.js` to customize your event
 // Register
 const touchObserver = Touch.bind(document.getElementById('id'))
 
-const unsubscribe = touchObserver.Observer.subscribe(function(EventObject){
-  
-}).unsubscribe
+const unsubscribe = touchObserver.Observer.subscribe((EventObject)=>{}).unsubscribe
 
 // Unregister
 
