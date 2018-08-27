@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=0.5">
+  <title>Title</title>
+  <script src="../node_modules/@livelybone/simple-observer/lib/index.js"></script>
+  <script src="../node_modules/@livelybone/meta-scale/lib/index.js"></script>
+  <script src="../lib/index.js"></script>
+</head>
+<body style="width:100vw;height:100vh">
+<div id="container" style="width:200px;height:50vh;background: #eee"></div>
+
+<script>
+var container = document.getElementById('container')
+Touch.tap(container, function (e) {
+  console.log('tap')
+})
+// Touch.press(container, function (e) {
+//   console.log('press')
+// })
+// Touch.swipe(container, function (e) {
+//   console.log('swipe')
+//   console.log(e)
+// })
+// Touch.pan(container, function (e) {
+//   console.log('pan')
+//   console.log(e)
+// })
+// Touch.pinch(container, function (e) {
+//   console.log('pinch')
+//   console.log(e)
+// })
+// Touch.rotate(container, function (e) {
+//   console.log('rotate')
+//   console.log(e)
+// })
+</script>
+</body>
+</html>
