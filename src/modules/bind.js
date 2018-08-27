@@ -4,17 +4,30 @@ var delta = require('../delta')
 var getCenter = require('../get-center')
 var Observer = require('@livelybone/simple-observer').Observer
 
+function unbind(touchObserver) {
+  touchObserver.destroy()
+}
+
 function bind(el) {
   var next = null
 
-  if (!window.TouchObserver) {
-    window.TouchObserver = {
+  if (!window.TouchObservers) {
+    window.TouchObservers = []
+  }
+
+  var touchObserver = window.TouchObservers.find(function (ob) {
+    return ob.el === el
+  })
+  if (!touchObserver) {
+    touchObserver = {
       Observer: new Observer(function (n) {
         next = n
-      })
+      }),
+      el: el
     }
+    window.TouchObservers.push(touchObserver)
   } else {
-    return window.TouchObserver
+    return touchObserver
   }
 
   var touches = null
@@ -38,7 +51,7 @@ function bind(el) {
       timeStamp: ev.timeStamp,
       centerDelta: null,
       deltaAngle: 0,
-      scale: 1,
+      pinchScale: 1,
       event: ev
     })
   }
@@ -63,7 +76,7 @@ function bind(el) {
       timeStamp: ev.timeStamp,
       centerDelta: delta(changedOrigin, center),
       deltaAngle: changedAngle - angle,
-      scale: changedDistance / distance || 1,
+      pinchScale: changedDistance / distance || 1,
       event: ev
     })
   }
@@ -78,13 +91,14 @@ function bind(el) {
   el.addEventListener('touchmove', touch)
   el.addEventListener('touchend', touch)
 
-  window.TouchObserver.destroy = function () {
+  touchObserver.destroy = function () {
     unbind()
-    window.TouchObserver = null
+    var index = Object.keys(window.TouchObservers).find(function (i) {
+      return window.TouchObservers[i].el === el
+    })
+    window.TouchObservers.splice(index, 1)
   }
-
-
-  return window.TouchObserver
+  return touchObserver
 }
 
 module.exports = bind

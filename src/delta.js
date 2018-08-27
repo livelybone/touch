@@ -4,11 +4,11 @@ module.exports = function (target, origin) {
   var scale = getScale()
   if (!target || !origin) {
     return {
-      x: 0,
-      y: 0,
-      distance: 0,
+      deltaX: 0,
+      deltaY: 0,
+      deltaDistance: 0,
       direction: '',
-      scale: scale,
+      windowScale: scale,
     }
   }
   var x = target.pageX - origin.pageX
@@ -17,10 +17,10 @@ module.exports = function (target, origin) {
   var directionX = Math.abs(x) <= 30 / scale ? '' : x > 0 ? 'right' : 'left'
   var directionY = Math.abs(y) <= 30 / scale ? '' : y > 0 ? 'bottom' : 'top'
   return {
-    x: x,
-    y: y,
-    distance: distance,
+    deltaX: x,
+    deltaY: y,
+    deltaDistance: distance,
     direction: directionX + (directionX && directionY ? '-' : '') + directionY,
-    scale: scale
+    windowScale: scale
   }
 }
