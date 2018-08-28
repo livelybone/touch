@@ -2,8 +2,8 @@ var bind = require('./bind')
 var assign = require('../merge-obj')
 var capitalize = require('../capitalize')
 
-function pan(el, callback) {
-  var res = bind(el)
+function pan(el, callback, preventRule) {
+  var res = bind(el, preventRule)
 
   return {
     unsubscribe: res.Observer.subscribe(function (ev) {

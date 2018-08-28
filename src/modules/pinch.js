@@ -2,8 +2,8 @@ var bind = require('./bind')
 var assign = require('../merge-obj')
 var capitalize = require('../capitalize')
 
-function pinch(el, callback) {
-  var res = bind(el)
+function pinch(el, callback, preventRule) {
+  var res = bind(el, preventRule)
   var endCount = 0
 
   return {

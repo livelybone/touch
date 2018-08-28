@@ -4,11 +4,7 @@ var delta = require('../delta')
 var getCenter = require('../get-center')
 var Observer = require('@livelybone/simple-observer').Observer
 
-function unbind(touchObserver) {
-  touchObserver.destroy()
-}
-
-function bind(el) {
+function bind(el, preventRule) {
   var next = null
 
   if (!window.TouchObservers) {
@@ -18,14 +14,19 @@ function bind(el) {
   var touchObserver = window.TouchObservers.find(function (ob) {
     return ob.el === el
   })
-  if (!touchObserver) {
-    touchObserver = {
-      Observer: new Observer(function (n) {
-        next = n
-      }),
-      el: el
+  if (!touchObserver || !touchObserver.Observer) {
+    var Ob = new Observer(function (n) {
+      next = n
+    })
+    if (!touchObserver) {
+      touchObserver = { Observer: Ob, next: next, el: el }
+      window.TouchObservers.push(touchObserver)
+    } else {
+      touchObserver.Observer = Ob
+      touchObserver.next = next
     }
-    window.TouchObservers.push(touchObserver)
+  } else if (preventRule) {
+    touchObserver.unbind()
   } else {
     return touchObserver
   }
@@ -42,7 +43,7 @@ function bind(el) {
     center = touches.length > 0 ? getCenter(touches[0], touches[1] || {}) : null
     angle = touches.length > 1 ? getAngle(touches[0], touches[1]) : 0
     distance = touches.length > 1 ? calcDistance(touches[0], touches[1]) : 0
-    next({
+    var EventObject = {
       type: ev.type,
       touches: touches,
       center: center,
@@ -53,7 +54,13 @@ function bind(el) {
       deltaAngle: 0,
       pinchScale: 1,
       event: ev
-    })
+    }
+    if (typeof preventRule === 'function') {
+      preventRule(EventObject)
+    } else if (preventRule) {
+      ev.preventDefault()
+    }
+    touchObserver.next(EventObject)
   }
 
   function touch(ev) {
@@ -67,7 +74,7 @@ function bind(el) {
     var changedOrigin = changedTouches.length > 0 ? getCenter(changedTouches[0], changedTouches[1] || {}) : null
     var changedAngle = changedTouches.length > 1 ? getAngle(changedTouches[0], changedTouches[1]) : 0
     var changedDistance = changedTouches.length > 1 ? calcDistance(changedTouches[0], changedTouches[1]) : 0
-    next({
+    var EventObject = {
       type: ev.type,
       touches: changedTouches,
       center: changedOrigin,
@@ -78,7 +85,13 @@ function bind(el) {
       deltaAngle: changedAngle - angle,
       pinchScale: changedDistance / distance || 1,
       event: ev
-    })
+    }
+    if (typeof preventRule === 'function') {
+      preventRule(EventObject)
+    } else if (preventRule) {
+      ev.preventDefault()
+    }
+    touchObserver.next(EventObject)
   }
 
   function unbind() {
@@ -91,12 +104,10 @@ function bind(el) {
   el.addEventListener('touchmove', touch)
   el.addEventListener('touchend', touch)
 
+  touchObserver.unbind = unbind
   touchObserver.destroy = function () {
     unbind()
-    var index = Object.keys(window.TouchObservers).find(function (i) {
-      return window.TouchObservers[i].el === el
-    })
-    window.TouchObservers.splice(index, 1)
+    touchObserver.Observer = null
   }
   return touchObserver
 }

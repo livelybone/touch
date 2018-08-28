@@ -14,28 +14,28 @@ https://github.com/livelybone/touch#readme
 import Touch from '@livelybone/touch'
 
 // Event `tap`
-Touch.tap(document.getElementById('id'), (EventObject)=>{})
+Touch.tap(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 
 // Event `press`
-Touch.press(document.getElementById('id'), (EventObject)=>{})
+Touch.press(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 
 // Event `swipe`
-Touch.swipe(document.getElementById('id'), (EventObject)=>{})
+Touch.swipe(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 
 // Event `pan`
-Touch.pan(document.getElementById('id'), (EventObject)=>{})
+Touch.pan(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 
 // Event `pinch`
-Touch.pinch(document.getElementById('id'), (EventObject)=>{})
+Touch.pinch(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 
 // Event `rotate`
-Touch.rotate(document.getElementById('id'), (EventObject)=>{})
+Touch.rotate(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 ```
 
 ## Unregister
 ```js
 // unregister one event listener
-var touchRes = Touch.tap(document.getElementById('id'), (EventObject)=>{})
+var touchRes = Touch.tap(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 touchRes.unsubscribe()
 
 // unregister all touch event of an element
@@ -46,7 +46,7 @@ Your can use `bind.js` to customize your event
 
 ```js
 // Register
-const touchObserver = Touch.bind(document.getElementById('id'))
+const touchObserver = Touch.bind(document.getElementById('id'), preventRuleFn)
 
 const unsubscribe = touchObserver.Observer.subscribe((EventObject)=>{}).unsubscribe
 
@@ -58,6 +58,19 @@ unsubscribe()
 // unregister all touch event of an element
 touchObserver.destory()
 ```
+
+## PreventRuleFn
+example:
+```js
+function preventRuleFn(EventObject){
+  if('some condition'){
+    EventObject.event.preventDefault()    
+  }
+}
+```
+This `function` param of Touch is used to set the prevent rule of native touch event
+
+And, one element only have one prevent rule, which means the preventRuleFn be set later will replace the previous one
 
 ## Event Object
 ```js

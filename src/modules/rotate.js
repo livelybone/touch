@@ -2,8 +2,8 @@ var assign = require('../merge-obj')
 var bind = require('./bind')
 var capitalize = require('../capitalize')
 
-function rotate(el, callback) {
-  var res = bind(el)
+function rotate(el, callback, preventRule) {
+  var res = bind(el, preventRule)
   var endCount = 0
 
   return {

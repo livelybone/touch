@@ -1,8 +1,8 @@
 var bind = require('./bind')
 var assign = require('../merge-obj')
 
-function press(el, callback) {
-  var res = bind(el)
+function press(el, callback, preventRule) {
+  var res = bind(el, preventRule)
   var timestamp = 0
 
   return {
