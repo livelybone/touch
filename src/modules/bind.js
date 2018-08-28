@@ -71,17 +71,17 @@ function bind(el, preventRule) {
     }).filter(function (t) {
       return !!t
     })
-    var changedOrigin = changedTouches.length > 0 ? getCenter(changedTouches[0], changedTouches[1] || {}) : null
+    var changedCenter = changedTouches.length > 0 ? getCenter(changedTouches[0], changedTouches[1] || {}) : null
     var changedAngle = changedTouches.length > 1 ? getAngle(changedTouches[0], changedTouches[1]) : 0
     var changedDistance = changedTouches.length > 1 ? calcDistance(changedTouches[0], changedTouches[1]) : 0
     var EventObject = {
       type: ev.type,
       touches: changedTouches,
-      center: changedOrigin,
+      center: changedCenter,
       angle: changedAngle,
       distance: changedDistance,
       timeStamp: ev.timeStamp,
-      centerDelta: delta(changedOrigin, center),
+      centerDelta: delta(changedCenter, center),
       deltaAngle: changedAngle - angle,
       pinchScale: changedDistance / distance || 1,
       event: ev

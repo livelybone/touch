@@ -10,11 +10,14 @@
 </head>
 <body style="width:100vw;height:100vh">
 <div id="container" style="width:200px;height:50vh;background: #eee"></div>
-<div id="container1" style="width:200px;height:50vh;background: #eee;margin: 20px 0 0"></div>
+<div id="container1" style="width:200px;height:50vh;background: #eee;margin: 20px 0 0">
+  <div id="content" style="width: 100px;height:10vh;background: #aaa;"></div>
+</div>
 
 <script>
 var container = document.getElementById('container')
 var container1 = document.getElementById('container1')
+var content = document.getElementById('content')
 var ob = Touch.tap(container, function (e) {
   console.log('tap')
   console.log(e)
@@ -24,6 +27,8 @@ var ob1 = Touch.press(container1, function (e) {
   console.log(e)
   ob.touchObserver.destroy()
 })
+
+content.addEventListener()
 </script>
 </body>
 </html>

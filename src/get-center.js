@@ -1,6 +1,6 @@
 module.exports = function (t1, t2) {
   function average(k) {
-    return (+t1[k] + (+t2[k] || 0)) / 2
+    return +t2[k] ? (+t1[k] + +t2[k]) / 2 : +t1[k]
   }
 
   return {
