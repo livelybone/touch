@@ -5,6 +5,6 @@ module.exports = function (cb) {
       callback = el
       el = window
     }
-    cb(el, callback, preventRule)
+    return cb(el, callback, preventRule)
   }
 }
