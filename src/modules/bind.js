@@ -40,7 +40,7 @@ function bind(el, preventRule) {
     touches = Array.prototype.map.call(ev.targetTouches, function (touch) {
       return touch
     })
-    center = touches.length > 0 ? getCenter(touches[0], touches[1] || {}) : null
+    center = touches.length > 0 ? getCenter(touches[0], touches[1]) : null
     angle = touches.length > 1 ? getAngle(touches[0], touches[1]) : 0
     distance = touches.length > 1 ? calcDistance(touches[0], touches[1]) : 0
     var EventObject = {
@@ -71,7 +71,7 @@ function bind(el, preventRule) {
     }).filter(function (t) {
       return !!t
     })
-    var changedCenter = changedTouches.length > 0 ? getCenter(changedTouches[0], changedTouches[1] || {}) : null
+    var changedCenter = changedTouches.length > 0 ? getCenter(changedTouches[0], changedTouches[1]) : null
     var changedAngle = changedTouches.length > 1 ? getAngle(changedTouches[0], changedTouches[1]) : 0
     var changedDistance = changedTouches.length > 1 ? calcDistance(changedTouches[0], changedTouches[1]) : 0
     var EventObject = {
