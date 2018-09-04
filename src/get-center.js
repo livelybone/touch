@@ -1,4 +1,4 @@
-module.exports = function (t1, t2) {
+export default function (t1, t2) {
   function average(k) {
     return t2 ? (+t1[k] + +t2[k]) / 2 : +t1[k]
   }

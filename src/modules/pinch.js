@@ -21,5 +21,4 @@ function pinch(el, callback, preventRule) {
     touchObserver: res
   }
 }
-
-module.exports = require('../args-deal')(pinch)
+export default require('../args-deal')(pinch)

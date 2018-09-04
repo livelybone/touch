@@ -1,4 +1,4 @@
-module.exports = Object.assign || function () {
+var assign = Object.assign || function () {
   var objects = Array.prototype.map.call(arguments, function (o) {
     return typeof o === 'object' ? o : {}
   })
@@ -9,3 +9,5 @@ module.exports = Object.assign || function () {
     return pre
   }, {})
 }
+
+export default assign

@@ -1,5 +1,6 @@
-var assign = require('../merge-obj')
-var bind = require('./bind')
+import argsDeal from '../args-deal'
+import assign from '../merge-obj'
+import bind from './bind'
 var capitalize = require('../capitalize')
 
 function rotate(el, callback, preventRule) {
@@ -21,5 +22,4 @@ function rotate(el, callback, preventRule) {
     touchObserver: res
   }
 }
-
-module.exports = require('../args-deal')(rotate)
+export default require('../args-deal')(rotate)

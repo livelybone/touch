@@ -15,4 +15,4 @@ function pan(el, callback, preventRule) {
   }
 }
 
-module.exports = require('../args-deal')(pan)
+export default require('../args-deal')(pan)

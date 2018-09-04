@@ -1,8 +1,10 @@
-var calcDistance = require('../calc-distance')
-var getAngle = require('../get-angle')
-var delta = require('../delta')
-var getCenter = require('../get-center')
-var Observer = require('@livelybone/simple-observer').Observer
+import SimpleObserver from '@livelybone/simple-observer'
+import calcDistance from '../calc-distance'
+import delta from '../delta'
+import getAngle from '../get-angle'
+import getCenter from '../get-center'
+
+var Observer = SimpleObserver.Observer
 
 function bind(el, preventRule) {
   var next = null
@@ -112,4 +114,4 @@ function bind(el, preventRule) {
   return touchObserver
 }
 
-module.exports = bind
+export default bind

@@ -23,4 +23,4 @@ function press(el, callback, preventRule) {
   }
 }
 
-module.exports = require('../args-deal')(press)
+export default require('../args-deal')(press)

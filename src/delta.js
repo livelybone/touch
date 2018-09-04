@@ -1,7 +1,7 @@
-var getScale = require('@livelybone/meta-scale')
+import MetaScale from '@livelybone/meta-scale'
 
-module.exports = function (target, origin) {
-  var scale = getScale()
+export default function (target, origin) {
+  var scale = MetaScale()
   if (!target || !origin) {
     return {
       deltaX: 0,

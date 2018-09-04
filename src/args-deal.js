@@ -1,4 +1,4 @@
-module.exports = function (cb) {
+export default function (cb) {
   return function (el, callback, preventRule) {
     if (typeof el === 'function') {
       preventRule = callback || null
