@@ -1,4 +1,4 @@
-import SimpleObserver from '@livelybone/simple-observer'
+import * as SimpleObserver from '@livelybone/simple-observer'
 import calcDistance from '../calc-distance'
 import delta from '../delta'
 import getAngle from '../get-angle'

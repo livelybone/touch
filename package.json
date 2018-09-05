@@ -1,6 +1,6 @@
 {
   "name": "@livelybone/touch",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "A module for gesture",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",
