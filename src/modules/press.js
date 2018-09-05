@@ -1,5 +1,6 @@
-var bind = require('./bind')
-var assign = require('../merge-obj')
+import argsDeal from '../args-deal'
+import assign from '../merge-obj'
+import bind from './bind'
 
 function press(el, callback, preventRule) {
   var res = bind(el, preventRule)
@@ -23,4 +24,4 @@ function press(el, callback, preventRule) {
   }
 }
 
-export default require('../args-deal')(press)
+export default argsDeal(press)

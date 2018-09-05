@@ -1,6 +1,7 @@
-var bind = require('./bind')
-var assign = require('../merge-obj')
-var capitalize = require('../capitalize')
+import argsDeal from '../args-deal'
+import capitalize from '../capitalize'
+import assign from '../merge-obj'
+import bind from './bind'
 
 function pinch(el, callback, preventRule) {
   var res = bind(el, preventRule)
@@ -21,4 +22,4 @@ function pinch(el, callback, preventRule) {
     touchObserver: res
   }
 }
-export default require('../args-deal')(pinch)
+export default argsDeal(pinch)

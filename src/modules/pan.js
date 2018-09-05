@@ -1,6 +1,7 @@
-var bind = require('./bind')
-var assign = require('../merge-obj')
-var capitalize = require('../capitalize')
+import argsDeal from '../args-deal'
+import capitalize from '../capitalize'
+import assign from '../merge-obj'
+import bind from './bind'
 
 function pan(el, callback, preventRule) {
   var res = bind(el, preventRule)
@@ -15,4 +16,4 @@ function pan(el, callback, preventRule) {
   }
 }
 
-export default require('../args-deal')(pan)
+export default argsDeal(pan)
