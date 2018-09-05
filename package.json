@@ -1,6 +1,6 @@
 {
   "name": "@livelybone/touch",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "description": "A module for gesture",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",
@@ -31,9 +31,7 @@
     "rollup": "^0.65.0",
     "rollup-plugin-commonjs": "^9.1.6",
     "rollup-plugin-node-resolve": "^3.3.0",
-    "rollup-plugin-uglify": "^5.0.2",
-    "webpack": "^4.16.2",
-    "webpack-command": "^0.4.1"
+    "rollup-plugin-uglify": "^5.0.2"
   },
   "dependencies": {
     "@livelybone/meta-scale": "^2.0.0",
