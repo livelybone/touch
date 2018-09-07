@@ -20,7 +20,7 @@ function getEntries() {
 
 const conf = entry => ({
   input: entry.filename,
-  external: ['@livelybone/meta-scale', '@livelybone/simple-observer'],
+  external: entry.external ? ['@livelybone/meta-scale', '@livelybone/simple-observer'] : [],
   output: entry.formats.map(format => ({
     file: `./lib/${format}/${entry.name}.js`,
     format,
@@ -34,7 +34,7 @@ const conf = entry => ({
 })
 
 export default [
-  { name: 'index', filename: './src/index.js', formats: ['es'], needUglify: false },
+  { name: 'index', filename: './src/index.js', formats: ['es'], needUglify: false, external: true },
   { name: 'index', filename: './src/index.js', formats: ['umd'] },
   ...getEntries()
 ].map(conf)
