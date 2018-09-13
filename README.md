@@ -11,25 +11,33 @@ https://github.com/livelybone/touch#readme
 
 ## Register
 ```js
-import Touch from '@livelybone/touch'
+import {tap,press,swipe,pan,pinch,rotate, bind} from '@livelybone/touch'
 
 // Event `tap`
-Touch.tap(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
-
+tap(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 // Event `press`
-Touch.press(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
-
+press(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 // Event `swipe`
-Touch.swipe(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
-
+swipe(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 // Event `pan`
-Touch.pan(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
-
+pan(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 // Event `pinch`
-Touch.pinch(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
-
+pinch(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
 // Event `rotate`
-Touch.rotate(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+rotate(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+```
+
+when you want to set this module as external while you are developing another module, you should import it like this:
+```js
+import * as Touch from '@livelybone/touch'
+
+// then use by need
+// Touch.tap
+// Touch.press
+// Touch.swipe
+// Touch.pan
+// Touch.pinch
+// Touch.rotate
 ```
 
 ## Unregister
@@ -45,8 +53,10 @@ touchRes.touchObserver.destroy()
 Your can use `bind.js` to customize your event
 
 ```js
+import {bind} from '@livelybone/touch'
+
 // Register
-const touchObserver = Touch.bind(document.getElementById('id'), preventRuleFn)
+const touchObserver = bind(document.getElementById('id'), preventRuleFn)
 
 const unsubscribe = touchObserver.Observer.subscribe((EventObject)=>{}).unsubscribe
 
@@ -102,4 +112,4 @@ var EventObject = {
 ```
 
 ## Touch event 
-Go to: https://www.xdnote.com/mobile-page-touch-event/
+Go to: http://www.xdnote.com/mobile-page-touch-event/
