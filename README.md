@@ -1,4 +1,11 @@
 # @livelybone/touch
+[![NPM Version](http://img.shields.io/npm/v/@livelybone/touch.svg?style=flat-square)](https://www.npmjs.com/package/@livelybone/touch)
+[![Download Month](http://img.shields.io/npm/dm/@livelybone/touch.svg?style=flat-square)](https://www.npmjs.com/package/@livelybone/touch)
+![gzip with dependencies: 1.9kb](https://img.shields.io/badge/gzip--with--dependencies-1.9kb-brightgreen.svg "gzip with dependencies: 1.9kb")
+![pkg.module](https://img.shields.io/badge/pkg.module-supported-blue.svg "pkg.module")
+
+> `pkg.module supported`, which means that you can apply tree-shaking in you project
+
 A module for gesture
 
 An element corresponds to an observer, this rule runs throughout the whole module
