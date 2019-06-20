@@ -1,6 +1,6 @@
 {
   "name": "@livelybone/touch",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "A module for gesture",
   "main": "./lib/umd/index.js",
   "module": "./lib/es/index.js",
@@ -28,7 +28,6 @@
   },
   "homepage": "https://github.com/livelybone/touch#readme",
   "devDependencies": {
-    "@livelybone/simple-observer": "^4.1.0",
     "commitizen": "^3.0.7",
     "conventional-changelog-cli": "^2.0.12",
     "cz-conventional-changelog": "^2.1.0",
@@ -41,7 +40,8 @@
     "rollup-plugin-uglify": "^6.0.2"
   },
   "dependencies": {
-    "@livelybone/meta-scale": "^2.0.0"
+    "@livelybone/meta-scale": "^2.0.0",
+    "@livelybone/simple-observer": "^4.1.0"
   },
   "config": {
     "commitizen": {
