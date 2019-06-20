@@ -1,10 +1,10 @@
-export default function (cb) {
-  return function (el, callback, preventRule) {
+export default function(cb) {
+  return function(el, callback, preventFn) {
     if (typeof el === 'function') {
-      preventRule = callback || null
+      preventFn = callback || null
       callback = el
       el = window
     }
-    return cb(el, callback, preventRule)
+    return cb(el, callback, preventFn)
   }
 }

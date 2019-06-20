@@ -8,78 +8,111 @@
 
 A module for gesture
 
-An element corresponds to an observer, this rule runs throughout the whole module
-
 ## repository
 https://github.com/livelybone/touch.git
 
-## Demo
-https://github.com/livelybone/touch#readme
+## Installation
+```bash
+npm i -S @livelybone/touch
+```
 
-## Register
+## Global name
+`Touch`
+
+## Usage
 ```js
-import {tap,press,swipe,pan,pinch,rotate, bind} from '@livelybone/touch'
+import { tap, press, swipe, pan, pinch, rotate, bind } from '@livelybone/touch'
+import { Subject } from '@livelybone/simple-observer'
+
+const element = document.getElementById('id')
+
+const preventFn = (EventObject) => {
+  EventObject.event.preventDefault()
+}
+
+const listener = (EventObject) => {
+  // ...do some thing
+}
 
 // Event `tap`
-tap(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+/**
+ * touchSubject, {subject: Subject, el: Element, preventFn: Function | null | undefined }
+ * */
+const touchSubject = bind(element, preventFn)
+
+// Event `tap`
+// Bind
+const tapUnbindFn = tap(element, listener, preventFn)
+// Unbind
+tapUnbindFn()
+
 // Event `press`
-press(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+// Bind
+const pressUnbindFn = press(element, listener, preventFn)
+// Unbind
+pressUnbindFn()
+
 // Event `swipe`
-swipe(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+// Bind
+const swipeUnbindFn = swipe(element, listener, preventFn)
+// Unbind
+swipeUnbindFn()
+
 // Event `pan`
-pan(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+// Bind
+const panUnbindFn = pan(element, listener, preventFn)
+// Unbind
+panUnbindFn()
+
 // Event `pinch`
-pinch(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+// Bind
+const pinchUnbindFn = pinch(element, listener, preventFn)
+// Unbind
+pinchUnbindFn()
+
 // Event `rotate`
-rotate(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
+// Bind
+const rotateUnbindFn = rotate(element, listener, preventFn)
+// Unbind
+rotateUnbindFn()
 ```
 
-when you want to set this module as external while you are developing another module, you should import it like this:
-```js
-import * as Touch from '@livelybone/touch'
-
-// then use by need
-// Touch.tap
-// Touch.press
-// Touch.swipe
-// Touch.pan
-// Touch.pinch
-// Touch.rotate
-```
-
-## Unregister
-```js
-// unregister one event listener
-var touchRes = Touch.tap(document.getElementById('id'), (EventObject)=>{}, preventRuleFn)
-touchRes.unsubscribe()
-
-// unregister all touch event of an element
-touchRes.touchObserver.destroy()
-```
 ## Custom event
-Your can use `bind.js` to customize your event
+Your can use `bind` to customize your event
 
 ```js
-import {bind} from '@livelybone/touch'
+import { bind } from '@livelybone/touch'
+import { Observer } from '@livelybone/simple-observer'
 
-// Register
-const touchObserver = bind(document.getElementById('id'), preventRuleFn)
+const element = document.getElementById('id')
 
-const unsubscribe = touchObserver.Observer.subscribe((EventObject)=>{}).unsubscribe
+const preventFn = (EventObject) => {
+  EventObject.event.preventDefault()
+}
 
-// Unregister
+const listener = (EventObject) => {
+  // ...do some thing
+}
 
-// just this event listener
-unsubscribe()
+const touchSubject = bind(element, preventFn)
+const observer = new Observer(listener)
 
-// unregister all touch event of an element
-touchObserver.destory()
+// Bind
+touchSubject.subject.addObserver(observer)
+
+// Unbind
+touchSubject.subject.removeObserver(observer)
+
+if (touchSubject.subject.getObserversCount() < 1) {
+  // unbind all listener of touch event on an native element
+  touchSubject.unbind()
+}
 ```
 
-## PreventRuleFn
+## PreventFn
 example:
 ```js
-function preventRuleFn(EventObject){
+function preventFn(EventObject){
   if('some condition'){
     EventObject.event.preventDefault()    
   }
@@ -87,7 +120,7 @@ function preventRuleFn(EventObject){
 ```
 This `function` param of Touch is used to set the prevent rule of native touch event
 
-And, one element only have one prevent rule, which means the preventRuleFn be set later will replace the previous one
+And, one element only have one prevent rule, which means the preventFn be set later will replace the previous one
 
 ## Event Object
 ```js

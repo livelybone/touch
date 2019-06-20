@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=0.5">
   <title>touch</title>
-  <script src="../node_modules/@livelybone/simple-observer/lib/index.js"></script>
-  <script src="../node_modules/@livelybone/meta-scale/lib/index.js"></script>
-  <script src="../lib/index.js"></script>
+  <script src="../node_modules/@livelybone/simple-observer/lib/umd/index.js"></script>
+  <script src="../node_modules/@livelybone/meta-scale/lib/umd/index.js"></script>
+  <script src="../lib/umd/index.js"></script>
 </head>
 <body style="width:100vw;height:100vh">
 <div id="container" style="width:200px;height:50vh;background: #eee"></div>
@@ -18,17 +18,14 @@
 var container = document.getElementById('container')
 var container1 = document.getElementById('container1')
 var content = document.getElementById('content')
-var ob = Touch.tap(container, function (e) {
+var unbindTap = Touch.tap(container, function(e) {
   console.log('tap')
   console.log(e)
 })
-var ob1 = Touch.press(container1, function (e) {
+var unbindPress = Touch.press(container1, function(e) {
   console.log('press')
   console.log(e)
-  ob.touchObserver.destroy()
 })
-
-content.addEventListener()
 </script>
 </body>
 </html>

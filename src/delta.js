@@ -1,6 +1,6 @@
 import MetaScale from '@livelybone/meta-scale'
 
-export default function (target, origin) {
+export default function(target, origin) {
   var scale = MetaScale()
   if (!target || !origin) {
     return {
@@ -21,6 +21,6 @@ export default function (target, origin) {
     deltaY: y,
     deltaDistance: distance,
     direction: directionX + (directionX && directionY ? '-' : '') + directionY,
-    windowScale: scale
+    windowScale: scale,
   }
 }

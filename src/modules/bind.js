@@ -1,37 +1,26 @@
-import * as SimpleObserver from '@livelybone/simple-observer'
+import { Subject } from '@livelybone/simple-observer'
 import calcDistance from '../calc-distance'
 import delta from '../delta'
 import getAngle from '../get-angle'
 import getCenter from '../get-center'
+import { find } from '../utils'
 
-var Observer = SimpleObserver.Observer
+var TouchSubjects = []
 
-function bind(el, preventRule) {
-  var next = null
-
-  if (!window.TouchObservers) {
-    window.TouchObservers = []
-  }
-
-  var touchObserver = window.TouchObservers.find(function (ob) {
-    return ob.el === el
+function bind(el, preventFn) {
+  var touchSubject = find(TouchSubjects, function(subject) {
+    return subject.el === el
   })
-  if (!touchObserver || !touchObserver.Observer) {
-    var Ob = new Observer(function (n) {
-      next = n
-    })
-    if (!touchObserver) {
-      touchObserver = { Observer: Ob, next: next, el: el }
-      window.TouchObservers.push(touchObserver)
-    } else {
-      touchObserver.Observer = Ob
-      touchObserver.next = next
-    }
-  } else if (preventRule) {
-    touchObserver.unbind()
-  } else {
-    return touchObserver
+
+  // If exist, return
+  if (touchSubject) {
+    touchSubject.preventFn = preventFn
+    return touchSubject
   }
+
+  var subject = new Subject()
+  touchSubject = { subject: subject, el: el, preventFn: preventFn }
+  TouchSubjects.push(touchSubject)
 
   var touches = null
   var center = null
@@ -39,9 +28,7 @@ function bind(el, preventRule) {
   var angle = 0
 
   function touchStart(ev) {
-    touches = Array.prototype.map.call(ev.targetTouches, function (touch) {
-      return touch
-    })
+    touches = [].concat.apply([], ev.targetTouches)
     center = touches.length > 0 ? getCenter(touches[0], touches[1]) : null
     angle = touches.length > 1 ? getAngle(touches[0], touches[1]) : 0
     distance = touches.length > 1 ? calcDistance(touches[0], touches[1]) : 0
@@ -55,24 +42,26 @@ function bind(el, preventRule) {
       centerDelta: null,
       deltaAngle: 0,
       pinchScale: 1,
-      event: ev
+      event: ev,
     }
-    if (typeof preventRule === 'function') {
-      preventRule(EventObject)
-    } else if (preventRule) {
+    if (typeof touchSubject.preventFn === 'function') {
+      touchSubject.preventFn(EventObject)
+    } else if (touchSubject.preventFn) {
       ev.preventDefault()
     }
-    touchObserver.next(EventObject)
+    touchSubject.subject.notify(EventObject)
   }
 
   function touch(ev) {
-    var changedTouches = touches.map(function (t) {
-      return Array.prototype.find.call(ev.changedTouches, function (touch) {
-        return touch.identifier === t.identifier
+    var changedTouches = touches
+      .map(function(t) {
+        return find(ev.changedTouches, function(touch) {
+          return touch.identifier === t.identifier
+        })
       })
-    }).filter(function (t) {
-      return !!t
-    })
+      .filter(function(t) {
+        return !!t
+      })
     var changedCenter = changedTouches.length > 0 ? getCenter(changedTouches[0], changedTouches[1]) : null
     var changedAngle = changedTouches.length > 1 ? getAngle(changedTouches[0], changedTouches[1]) : 0
     var changedDistance = changedTouches.length > 1 ? calcDistance(changedTouches[0], changedTouches[1]) : 0
@@ -86,14 +75,14 @@ function bind(el, preventRule) {
       centerDelta: delta(changedCenter, center),
       deltaAngle: changedAngle - angle,
       pinchScale: changedDistance / distance || 1,
-      event: ev
+      event: ev,
     }
-    if (typeof preventRule === 'function') {
-      preventRule(EventObject)
-    } else if (preventRule) {
+    if (typeof touchSubject.preventFn === 'function') {
+      touchSubject.preventFn(EventObject)
+    } else if (touchSubject.preventFn) {
       ev.preventDefault()
     }
-    touchObserver.next(EventObject)
+    touchSubject.subject.notify(EventObject)
   }
 
   function unbind() {
@@ -106,12 +95,8 @@ function bind(el, preventRule) {
   el.addEventListener('touchmove', touch)
   el.addEventListener('touchend', touch)
 
-  touchObserver.unbind = unbind
-  touchObserver.destroy = function () {
-    unbind()
-    touchObserver.Observer = null
-  }
-  return touchObserver
+  touchSubject.unbind = unbind
+  return touchSubject
 }
 
 export default bind
